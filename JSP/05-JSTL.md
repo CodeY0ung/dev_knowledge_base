@@ -48,3 +48,8 @@ request.getRequestDispatcher("select.jsp").forward(request, response);
 ```
 
 EL은 JavaBean getter를 사용한다. 원본 필기의 `stu_grade`/`gender` 등은 실제 Student 클래스의 getter와 대조해야 한다. DB 조회는 JSP가 아닌 DAO로 분리한다.
+
+## d1027 학습 기록
+
+- JSTL 문법 학습.
+- 해당 교시의 실습 코드 커밋 누락으로 상세 예제는 추후 보충 예정.
