@@ -12,3 +12,4 @@
 | [07 JDBC·DAO](07-JDBC-DAO.md) | DB와 Servlet, JSP |
 | [08 AJAX](08-AJAX-Servlet.md) | 아이디 중복 확인 |
 | [09 자료 대응표](09-Source-Map.md) | 원본 및 수정 사항 |
+| [10 회원·매출 관리 실습](10-Member-Sales-Practice.md) | d1027 Servlet·JDBC·JSP 프로젝트 |
