@@ -36,3 +36,38 @@ request.getRequestDispatcher("test.jsp").forward(request, response);
 ```
 
 Servlet은 request를 매개변수로 받고 session/application은 호출로 얻는다. 일반 Servlet에는 JSP pageContext가 제공되지 않는다. 위 Forward 후 test.jsp의 `${x}`는 page 영역에 x가 없다면 request-x를 출력한다.
+
+## EL 연산자 실습 (d1027)
+
+| 연산 | 기호 | 키워드 |
+|---|---|---|
+| 나머지 | `%` | `mod` |
+| 같음 | `==` | `eq` |
+| 다름 | `!=` | `ne` |
+| 초과 / 미만 | `>` / `<` | `gt` / `lt` |
+| 이상 / 이하 | `>=` / `<=` | `ge` / `le` |
+
+```jsp
+${10 mod 3}
+${10 % 3}
+${10 eq 10}
+${10 ne 10}
+${10 gt 9}
+${8 lt 9}
+${8 ge 7}
+${7 le 8}
+```
+
+### 파라미터와 삼항 연산자
+
+```jsp
+${not empty param.id}
+${param.id == null}
+${param.id == ""}
+
+<% pageContext.setAttribute("score", 50); %>
+<p>${score >= 60 ? "합격" : "불합격"}</p>
+```
+
+- `param.id`는 URL 쿼리 문자열이나 폼으로 전달된 `id` 파라미터를 조회한다.
+- `not empty`는 null 또는 빈 문자열일 때 false가 된다.
