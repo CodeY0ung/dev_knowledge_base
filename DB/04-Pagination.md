@@ -30,3 +30,20 @@ OFFSET 3 ROWS FETCH NEXT 3 ROWS ONLY;
 - 정렬 기준이 있어야 페이지 간 순서가 안정적이다. 유일한 컬럼을 정렬 조건에 사용하는 것이 좋다.
 
 원본: [02_last.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0921/02_last.sql), [02_paging.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0922/02_paging.sql)
+
+## 페이지 번호에서 OFFSET 계산
+
+```java
+int page = 3;
+int pageSize = 10;
+int offset = (page - 1) * pageSize; // 20
+```
+
+```sql
+SELECT id, user_id, item_id, quantity
+FROM order_record
+ORDER BY id ASC
+OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
+```
+
+3페이지는 앞선 20행을 건너뛰고 최대 10행을 조회한다. 페이지 번호는 1 이상, 페이지 크기는 양수로 검증해야 한다. `ORDER BY`가 없으면 안정적인 페이지 순서를 기대할 수 없다.
