@@ -71,3 +71,17 @@ ${param.id == ""}
 
 - `param.id`는 URL 쿼리 문자열이나 폼으로 전달된 `id` 파라미터를 조회한다.
 - `not empty`는 null 또는 빈 문자열일 때 false가 된다.
+
+## d1028: EL 출력 및 표시 포맷
+
+- EL로 요청·세션 값을 JSP 화면에 출력하는 방법 복습.
+- 주문번호와 숫자, 날짜의 출력 형태를 맞추는 포맷 학습.
+- EL은 값에 접근하는 표현식이고, 숫자·날짜 포맷은 JSTL fmt 태그 등을 사용할 수 있다.
+
+```jsp
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<fmt:formatNumber value="${price}" groupingUsed="true"/>
+<fmt:formatDate value="${date}" pattern="yyyy-MM-dd"/>
+```
+
+위 날짜 예시는 `java.util.Date`를 전달하는 경우다. 문자열 날짜나 `java.time` 타입은 입력 타입에 맞게 처리한다. 주문번호는 숫자가 아닌 식별자일 수 있어 앞자리 0 보존에 주의한다.
