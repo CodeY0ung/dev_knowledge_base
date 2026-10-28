@@ -1,6 +1,6 @@
 # 회원·매출 관리 프로그램 (d1027, 3~8교시)
 
-- 소스: [CodeY0ung/exam_jsp](https://github.com/CodeY0ung/exam_jsp)
+- 실습 내용은 이 문서에 자체 정리 (외부 저장소 링크 없이 확인 가능)
 - 기술: Java Servlet, JSP, JDBC, Oracle DB
 - 구현: 회원 등록 · 목록 조회 · 상세 조회/수정 · 회원별 매출 조회
 
@@ -17,8 +17,8 @@ Browser → Servlet → MemberService → MemberDao → Oracle DB
 | 도메인 | `domain/Member.java` |
 | 입력 DTO | `dto/UpdateMemberInfoRequest.java` |
 | 매출 조회 DTO | `dto/MemberSaleResponse.java` |
-| DB 연결 | `dao/DBUtil.java` |
-| DB 접근 | `dao/MemberDao.java` |
+| DB 연결 | `dao/DBUtil.java` — `Connection` 생성 |
+| DB 접근 | `dao/MemberDao.java` — PreparedStatement로 CRUD·집계 조회 |
 | 비즈니스 호출 | `service/MemberService.java` |
 | 요청 처리 | `servlet/*.java` |
 | 화면 | `src/main/webapp/*.jsp` |
@@ -33,6 +33,22 @@ Browser → Servlet → MemberService → MemberDao → Oracle DB
 | 회원 상세 | `/memberInfo?id=...` | 회원 1명 조회 | `memberInfo.jsp`로 forward |
 | 회원 수정 | `/updateMemberInfo` | 수정 DTO → UPDATE | `/`로 redirect |
 | 매출 조회 | `/sales` | JOIN·SUM·GROUP BY | `salesList.jsp`로 forward |
+
+## JSP 요청·응답 전달 예제
+
+```java
+// 회원 목록 요청 처리
+List<Member> members = memberService.findMembers();
+request.setAttribute("ml", members);
+request.getRequestDispatcher("member_list.jsp").forward(request, response);
+```
+
+```jsp
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:forEach var="m" items="${ml}">
+  <tr><td>${m.custNo}</td><td>${m.custName}</td></tr>
+</c:forEach>
+```
 
 ## JOIN 결과와 DTO
 
