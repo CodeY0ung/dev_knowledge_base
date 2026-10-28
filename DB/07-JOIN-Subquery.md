@@ -29,3 +29,21 @@ WHERE sal > (SELECT sal FROM emp WHERE ename = 'BLAKE');
 - **원본 교정:** `NEWYORK`은 예제 데이터 `NEW YORK`과 일치하지 않는다.
 
 원본: [join.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0916/join.sql), [9/17 JOIN 실습](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0917/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C.sql)
+
+## JOIN 결과 비교
+
+```sql
+-- 일치하는 직원만
+SELECT e.ename, d.dname FROM emp e
+INNER JOIN dept d ON e.deptno = d.deptno;
+
+-- 부서에 속한 직원이 없어도 부서는 표시
+SELECT d.dname, e.ename FROM dept d
+LEFT JOIN emp e ON d.deptno = e.deptno;
+
+-- 직원의 상급자 찾기
+SELECT e.ename, manager.ename AS manager_name
+FROM emp e LEFT JOIN emp manager ON e.mgr = manager.empno;
+```
+
+`INNER JOIN`은 일치 행만, `LEFT JOIN`은 왼쪽 테이블의 모든 행을 포함한다. Self Join은 같은 테이블에 서로 다른 별칭을 부여한다. `NATURAL JOIN`은 이름이 같은 모든 컬럼을 조인 조건으로 사용하므로 스키마 변경에 주의한다.
