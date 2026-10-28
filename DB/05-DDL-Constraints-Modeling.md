@@ -47,3 +47,25 @@ CREATE TABLE practice_sample (
 ```
 
 실습에서 테이블 생성, 입력 데이터 검증을 복습했다. 시험용 원본 테이블 및 데이터는 복제하지 않는다.
+
+## 자료형·관계 선택
+
+```sql
+CREATE TABLE department (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR2(30) NOT NULL
+);
+CREATE TABLE employee (
+    id NUMBER PRIMARY KEY,
+    department_id NUMBER NOT NULL,
+    salary NUMBER(10, 2),
+    CONSTRAINT fk_employee_dept
+        FOREIGN KEY (department_id) REFERENCES department(id)
+);
+```
+
+- `CHAR(n)`: 고정 길이, 짧은 값은 공백 패딩.
+- `VARCHAR2(n)`: 가변 길이 문자열.
+- `NUMBER(p,s)`: 정밀도 p와 소수 자릿수 s.
+- FK는 부모 데이터가 없는 참조를 막는다.
+- 학생–수강–과목과 책–대여 관계처럼 다대다 관계를 별도 연결 테이블로 풀 수 있다.
