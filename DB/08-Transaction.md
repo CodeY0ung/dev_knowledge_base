@@ -22,3 +22,22 @@ COMMIT;
 - 서로 다른 세션이 동일 행을 변경할 때 행 잠금으로 대기할 수 있다.
 
 원본: [02tansaction.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0917/02tansaction.sql), [03_test.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0922/03_test.sql)
+
+## JDBC에서 하나의 트랜잭션 처리
+
+```java
+try (Connection conn = DBUtil.getConnection()) {
+    conn.setAutoCommit(false);
+    try {
+        // 같은 Connection으로 여러 SQL 실행
+        conn.commit();
+    } catch (SQLException e) {
+        conn.rollback();
+        throw e;
+    }
+}
+```
+
+- 여러 DML을 하나의 작업 단위로 묶을 때 같은 Connection을 사용한다.
+- `ROLLBACK TO`는 Savepoint 이후 변경만 취소하지만 단순 `ROLLBACK`은 트랜잭션 전체의 미확정 변경을 취소한다.
+- Oracle DDL에는 암묵적 커밋이 있어 DML과 동일한 방식으로 롤백되지 않는다.
