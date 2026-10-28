@@ -24,3 +24,23 @@ COMMIT;
 - Oracle에서 트랜잭션을 확정해야 다른 세션에서 변경 결과를 확인할 수 있다(자동 커밋 설정에 따라 차이).
 - JDBC 코드도 `autoCommit` 설정을 확인한다.
 - 이 예시는 개념 복습용이며 실제 시험 데이터는 포함하지 않는다.
+
+## JDBC 실행 순서
+
+```java
+String sql = "SELECT name FROM member WHERE id = ?";
+try (Connection conn = DBUtil.getConnection();
+     PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setInt(1, 1);
+    try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) System.out.println(rs.getString("name"));
+    }
+}
+```
+
+- `Connection`: DB 연결·트랜잭션 제어.
+- `PreparedStatement`: SQL 준비 및 `?`에 값 바인딩.
+- `executeQuery()`: SELECT 후 `ResultSet` 반환.
+- `executeUpdate()`: INSERT·UPDATE·DELETE 후 영향받은 행 수 반환.
+- try-with-resources: JDBC 자원 자동 종료.
+- JDBC 기본 auto-commit 설정에서는 각 SQL 문장이 자동 커밋될 수 있다. 명시적 트랜잭션에서는 `setAutoCommit(false)`, `commit()`, `rollback()`을 사용한다.
