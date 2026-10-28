@@ -22,3 +22,24 @@ END;
 - 데이터 무결성은 가능하면 제약조건으로 처리하고, 트리거는 자동 기록 등 실제 필요가 있을 때 사용한다.
 
 원본: [01_trigger.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0922/01_trigger.sql)
+
+## :OLD와 :NEW
+
+| 이벤트 | :OLD | :NEW |
+|---|---|---|
+| INSERT | 없음 | 새 값 |
+| UPDATE | 기존 값 | 변경 값 |
+| DELETE | 삭제 전 값 | 없음 |
+
+```sql
+CREATE OR REPLACE TRIGGER trg_log
+AFTER INSERT ON employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_log(emp_id, created_at)
+    VALUES (:NEW.emp_id, SYSDATE);
+END;
+/
+```
+
+원본 실습에서는 사원 삭제 시 이전 데이터를 백업 테이블에 기록하고, 입력 시 로그를 남기는 트리거를 다뤘다. `FOR EACH ROW`는 영향받는 각 행마다 트리거 본문을 수행한다. 트리거는 해당 DML과 같은 트랜잭션에 속한다.
