@@ -29,3 +29,12 @@ CREATE TABLE test05 (
 - 시퀀스 값은 결번이 발생할 수 있으므로 연속성을 보장하는 번호로 취급하지 않는다.
 
 원본: [00_test.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0915/00_test.sql), [00_test04.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0922/00_test04.sql), [03_reservation.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0921/03_reservation.sql)
+
+## 채번 차이
+
+```sql
+CREATE SEQUENCE order_seq START WITH 1 INCREMENT BY 1;
+INSERT INTO orders (id) VALUES (order_seq.NEXTVAL);
+```
+
+Sequence는 테이블 외부에 정의하고 여러 SQL에서 `NEXTVAL`로 요청한다. Identity는 특정 컬럼 선언에 자동 값 생성을 지정한다. `GENERATED ALWAYS`와 `BY DEFAULT`는 명시적 ID 입력 허용 방식이 다르다. 두 방식 모두 롤백·캐시 등에 따라 번호가 연속되지 않을 수 있다.
