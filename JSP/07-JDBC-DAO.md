@@ -74,3 +74,17 @@ public class SelectServlet extends HttpServlet {
 - JSP EL로 `${sl}`을 조회할 수 있으므로 `pageContext.setAttribute("sl", sl)`를 다시 호출하지 않아도 된다.
 - Driver JAR은 필요하지만 `Class.forName()` 호출은 JDBC 4 이후 드라이버 자동 등록 때문에 항상 필수는 아니다.
 - try-with-resources로 JDBC 연결, Statement, ResultSet을 닫는다.
+
+## d1028: Servlet–Service–DAO 종합 실습
+
+```text
+JSP Form → Servlet → Request DTO → Service → DAO → JDBC → Oracle
+JSP 화면 ← forward / request Attribute ← 조회 결과 DTO
+```
+
+- 등록 요청을 DTO에 담고 Service·DAO를 통해 INSERT.
+- 조회 SQL 결과를 용도별 응답 DTO로 매핑하고 JSP에서 목록 출력.
+- `PreparedStatement`의 바인딩, JDBC 연결, `executeUpdate()`·`executeQuery()` 복습.
+- 테이블 정의와 데이터 입력 후 COMMIT 여부 확인.
+
+기존 실습 저장소는 초기화 후 재사용했다. 상세 시험 문항 및 시험 데이터는 이 문서에 보관하지 않는다.
