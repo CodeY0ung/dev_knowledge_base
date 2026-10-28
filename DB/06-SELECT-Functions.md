@@ -26,3 +26,21 @@ SELECT SUBSTR(ename, 1, 2), REPLACE(ename, 'E', 'Z') FROM emp;
 - 문자열·날짜 함수는 Oracle 전용 함수 또는 DBMS별 차이가 있을 수 있다.
 
 원본: [01_student.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0915/01_student.sql), [01_textbook_training.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0916/01_textbook_training.sql), [제목 없음.sql](https://github.com/CodeY0ung/Oracle_practice/blob/main/d0917/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C.sql)
+
+## 집계와 HAVING
+
+```sql
+SELECT deptno, COUNT(*) AS people, AVG(sal) AS avg_salary
+FROM emp
+WHERE sal > 0
+GROUP BY deptno
+HAVING COUNT(*) >= 2
+ORDER BY people DESC;
+```
+
+처리 흐름에서 `WHERE`는 집계할 행을 필터링하고, `GROUP BY`는 그룹을 만들며, `HAVING`은 집계 결과를 필터링한다. `COUNT(*)`는 행 수를 세고, `COUNT(column)`은 해당 컬럼이 NULL이 아닌 행 수를 센다.
+
+```sql
+SELECT SUBSTR(ename, 1, 2), UPPER(ename), LENGTH(ename) FROM emp;
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM dual;
+```
