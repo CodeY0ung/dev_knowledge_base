@@ -18,3 +18,5 @@
 실습 원본: [BNK_bootcamp/src](https://github.com/CodeY0ung/BNK_bootcamp/tree/main/src)
 
 SQL 원본: [Oracle_practice](https://github.com/CodeY0ung/Oracle_practice)
+
+| [13 DBCP·JNDI](13-DBCP-JNDI.md) | Tomcat 커넥션 풀·DataSource |
