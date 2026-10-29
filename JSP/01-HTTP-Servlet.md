@@ -59,3 +59,14 @@ public class FormServlet2 extends HttpServlet {
 - Form action 상대 URL과 `/FormServlet2` 절대경로는 컨텍스트 경로에 주의한다.
 
 ![손글씨](assets/request%3C-%3Eresponse-handwritten.jpg)
+
+## d1029: HttpServletRequest 정보
+
+```jsp
+<%= request.getContextPath() %>  <%-- 애플리케이션 컨텍스트 경로 --%>
+<%= request.getMethod() %>       <%-- GET, POST 등 --%>
+<%= request.getRequestURL() %>   <%-- 요청 URL (쿼리 제외) --%>
+<%= request.getRequestURI() %>   <%-- 요청 URI --%>
+<%= request.getServerName() %>   <%-- 서버 호스트 이름 --%>
+<%= request.getProtocol() %>     <%-- HTTP/1.1 등 --%>
+```
