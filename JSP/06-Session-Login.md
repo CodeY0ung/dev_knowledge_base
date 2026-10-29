@@ -79,3 +79,23 @@ JSP에서는 `${sessionScope.role}`로 값을 출력할 수 있다.
 ```
 
 **주의:** JavaScript의 role 확인은 개발자 도구에서 우회 가능하다. 실제 접근 권한은 **Servlet/Filter 등 서버 측**에서 검사해야 한다. 현재 실습의 로그인 Servlet은 ID 존재 여부만 확인하고 비밀번호를 검증하지 않는다. 학습용 구현이며 실제 인증으로 사용하면 안 된다.
+
+## d1029: 세션 정보 확인
+
+```java
+String sessionId = session.getId();
+long created = session.getCreationTime();
+long lastAccessed = session.getLastAccessedTime();
+int timeoutSeconds = session.getMaxInactiveInterval();
+session.setMaxInactiveInterval(60); // 60초
+boolean isNew = session.isNew();
+
+session.setAttribute("name", "James");
+String name = (String) session.getAttribute("name");
+Enumeration<String> names = session.getAttributeNames();
+```
+
+- `getCreationTime()`, `getLastAccessedTime()`은 밀리초 단위 시각이다. 두 값의 차이는 마지막 요청까지의 경과 시간이지 실제 화면 체류시간이 아니다.
+- 세션 저장값은 `getAttribute()`로 읽고 `getAttributeNames()`로 저장된 이름을 순회한다.
+- 서버는 보통 `JSESSIONID` 쿠키로 브라우저 요청과 서버 세션을 연결한다. 쿠키에 저장되는 것은 기본적으로 세션 ID이며 세션 Attribute 전체가 아니다.
+- 세션 ID는 인증 후 갱신하는 등 세션 고정 공격에 대한 방어가 필요하다.
