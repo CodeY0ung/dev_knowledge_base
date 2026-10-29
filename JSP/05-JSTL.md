@@ -53,3 +53,17 @@ EL은 JavaBean getter를 사용한다. 원본 필기의 `stu_grade`/`gender` 등
 
 - JSTL 문법 학습.
 - 해당 교시의 실습 코드 커밋 누락으로 상세 예제는 추후 보충 예정.
+
+## d1029: JSTL 조건 분기
+
+```jsp
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:if test="${param.loginCheck == 'user'}">
+    <jsp:forward page="userMain.jsp"/>
+</c:if>
+```
+
+- `c:if`: EL 조건식이 참일 때 본문 실행.
+- `c:redirect`: 클라이언트 리다이렉트.
+- `jsp:forward`: JSTL이 아닌 JSP 액션 태그. 서버 내부 전달.
+- 원본 필기에서는 `loginCeck`로 Attribute를 저장하고 `loginCheck`로 조회해 이름이 맞지 않았다. `pageContext.setAttribute("loginCheck", value)`로 통일하거나 `param.loginCheck`를 직접 사용한다.
