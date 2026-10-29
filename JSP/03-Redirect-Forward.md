@@ -41,3 +41,15 @@ response.sendRedirect("target");
 - **정정:** 모든 요청이 `DispatcherServlet`을 거치는 것은 아니다. `DispatcherServlet`은 Spring MVC에서 사용하는 프론트 컨트롤러다.
 - **정정:** JSP도 URL로 직접 요청할 수 있다. 컨테이너가 JSP를 Servlet 소스로 변환·컴파일하여 실행한다.
 - Servlet 하나가 반드시 페이지 하나에 대응하거나 다른 Servlet으로 전달하는 전담 Servlet이 필요한 것은 아니다.
+
+## d1029: JSP 액션 태그로 Forward
+
+```jsp
+<jsp:forward page="userMain.jsp">
+    <jsp:param name="userid" value="${param.userid}" />
+</jsp:forward>
+```
+
+- `<jsp:forward>`는 서버 내부에서 요청을 전달하고 `<jsp:param>`으로 파라미터를 추가한다.
+- Redirect에서 한글을 URL에 포함하면 URL 인코딩이 필요하다. Forward도 요청 문자 인코딩 설정은 별도로 확인해야 하며 무조건 인코딩 문제가 없는 것은 아니다.
+- Redirect 주소에 쿼리 파라미터를 붙일 때는 값을 `URLEncoder.encode(value, StandardCharsets.UTF_8)` 등으로 인코딩한다.
