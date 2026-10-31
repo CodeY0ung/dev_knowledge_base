@@ -18,3 +18,6 @@
 | [12 JSP Bean 액션 태그](12-JSP-Action-Bean.md) | useBean·setProperty·getProperty |
 | [13 Cookie와 HTTP 상태](13-Cookie-HTTP-State.md) | 쿠키 생성·수정·삭제·세션 식별 |
 | [14 Model 1·Model 2 MVC](14-MVC-Model2.md) | Servlet·Service·DAO·JSP 역할 분리 |
+
+| [15 Multipart 파일 업로드](15-Servlet-File-Upload.md) | d1030 단일·다중 파일, Part, 저장 경로 |
+| [16 회원 이미지 게시판](16-Image-Board-MVC-Practice.md) | d1030 MVC·JDBC·이미지 게시판 실습 |
